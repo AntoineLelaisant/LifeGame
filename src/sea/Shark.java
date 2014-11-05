@@ -13,9 +13,9 @@ public class Shark extends Fish
 	/**
 	 * 
 	 */
-	public Shark()
+	public Shark(Sea sea)
 	{
-		// TODO Auto-generated constructor stub
+		super(sea);
 	}
 
 	/* (non-Javadoc)
@@ -26,6 +26,18 @@ public class Shark extends Fish
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int getDeathAge()
+	{
+		return 70;
+	}
+
+	@Override
+	public int getReproductionFrequency()
+	{
+		return 5;
 	}
 
 }

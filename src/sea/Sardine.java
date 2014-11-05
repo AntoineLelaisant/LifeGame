@@ -13,9 +13,9 @@ public class Sardine extends Fish
 	/**
 	 * 
 	 */
-	public Sardine()
+	public Sardine(Sea sea)
 	{
-		// TODO Auto-generated constructor stub
+		super(sea);
 	}
 
 	/* (non-Javadoc)
@@ -26,6 +26,18 @@ public class Sardine extends Fish
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int getDeathAge()
+	{
+		return 15;
+	}
+
+	@Override
+	public int getReproductionFrequency()
+	{
+		return 2;
 	}
 
 }
