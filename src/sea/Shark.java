@@ -18,16 +18,6 @@ public class Shark extends Fish
 		super(sea);
 	}
 
-	/* (non-Javadoc)
-	 * @see sea.Fish#move()
-	 */
-	@Override
-	public void move()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public int getDeathAge()
 	{

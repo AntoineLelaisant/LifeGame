@@ -3,6 +3,8 @@
  */
 package sea;
 
+import java.util.LinkedList;
+
 /**
  * @author antoine
  *
@@ -19,6 +21,10 @@ public abstract class Fish
 	 */
 	protected Sea sea;
 	
+	/**
+	 * The coordinate of the fish in the sea
+	 */
+	protected Coordinate coordinate;
 
 	/**
 	 * 
@@ -31,9 +37,69 @@ public abstract class Fish
 	}
 	
 	/**
+	 * Get the fish coordinate
+	 * 
+	 * @return the fish {@link Coordinate}
+	 */
+	public Coordinate getCoordinate()
+	{
+		return this.coordinate;
+	}
+	
+	/**
+	 * Set the coordinate of the fish
+	 * 
+	 * @param coord the new {@link Coordinate} of the fish
+	 */
+	public void setCoordinate(Coordinate coord)
+	{
+		this.coordinate = coord;	
+	}
+	
+	/**
+	 * Retrieves the availables places in which
+	 * the fish can move.
+	 * 
+	 * @return the list of availables places
+	 */
+	public LinkedList<Coordinate> getAvailablePlaces()
+	{
+		LinkedList<Coordinate> coords = Coordinate.getNeighbours(this.coordinate);
+		
+		@SuppressWarnings("unchecked")
+		LinkedList<Coordinate> coordsCloned = (LinkedList<Coordinate>) coords.clone();
+		
+		for (Coordinate coordinate : coordsCloned) {
+			try{
+				Fish fish = this.sea.getSquare(coordinate);
+				
+				if (fish != null) {
+					coords.remove(coordinate);
+				}
+				
+			} catch(IndexOutOfBoundsException e) {
+				coords.remove(coordinate);
+			}
+		}	
+		return coords;
+	}
+	
+	/**
 	 * Moves to an adjacent square 
 	 */
-	public abstract void move();
+	public void move() 
+	{
+		Coordinate target = Coordinate.getRandomCoord( this.getAvailablePlaces());
+		
+		/*
+		 * If target is null it means
+		 * that the fish have no available place
+		 * to go. So we do nothing
+		 */
+		if (target != null) {
+			this.sea.moveFish(this, target);
+		}
+	}
 	
 	/**
 	 * 
@@ -54,6 +120,7 @@ public abstract class Fish
 		ret += "Age: "+this.age+"\n";
 		ret += "Death age: "+this.getDeathAge()+"\n";
 		ret += "Reproduction frequency: "+this.getReproductionFrequency()+"\n";
+		ret += "Coordinate: ["+this.coordinate.getX()+";"+this.coordinate.getY()+"]\n";
 		
 		return ret;
 	}

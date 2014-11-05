@@ -25,6 +25,11 @@ public class LifeGame
 	private int currentCycle;
 	
 	/**
+	 * Whether the cycle should be displayed or not
+	 */
+	private boolean dumpCycles = false;
+	
+	/**
 	 * 
 	 * @param sea The sea in which the system take place
 	 */
@@ -55,7 +60,17 @@ public class LifeGame
 	 */
 	public void startTime(int cycles)
 	{
-		
+		while (this.currentCycle < cycles) {
+			
+			for (Fish fish : this.sea.getFishes()) {
+				fish.move();
+			}
+			
+			if (this.dumpCycles) {
+				this.dump();
+			}
+			this.currentCycle++;
+		}
 	}
 	
 	/**
@@ -65,15 +80,31 @@ public class LifeGame
 	 */
 	public void startTime()
 	{
-		
+		this.startTime(MAX_CYCLE);
+	}
+	
+	/**
+	 * Set the parameter dumpCycle
+	 * 
+	 * @param value the value of the parameter
+	 */
+	public void dumpCycles(boolean value) 
+	{
+		this.dumpCycles = value;
+	}
+	
+	/**
+	 * Dump the Life Game
+	 */
+	public void dump()
+	{
+		System.out.println("Cycle "+this.currentCycle+"\n");
+		System.out.println(this.toString());
 	}
 	
 	@Override
 	public String toString()
 	{
-		String ret = "Cycle "+this.currentCycle+"\n";
-		ret += this.sea.toString();
-		
-		return ret;
+		return this.sea.toString();
 	}
 }
