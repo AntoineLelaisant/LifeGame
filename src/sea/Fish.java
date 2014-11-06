@@ -99,6 +99,12 @@ public abstract class Fish
 		if (target != null) {
 			this.sea.moveFish(this, target);
 		}
+		
+		/*
+		 * At the end of the cycle
+		 * the fish grow up
+		 */
+		this.age++;
 	}
 	
 	/**

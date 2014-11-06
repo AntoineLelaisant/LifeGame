@@ -9,7 +9,6 @@ package sea;
  */
 public class Sardine extends Fish
 {
-
 	/**
 	 * 
 	 */

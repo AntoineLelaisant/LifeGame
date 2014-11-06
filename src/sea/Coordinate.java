@@ -152,6 +152,49 @@ public class Coordinate
 	}
 	
 	/**
+	 * Get the upper left Coordinate of the given one
+	 * 
+	 * @param initial the coordinate from which to search
+	 * @return the retrived Coordinate
+	 */
+	public static Coordinate getUpLeftCoord(Coordinate initial)
+	{
+		return new Coordinate(initial.getX()+1,initial.getY()-1);
+	}
+	
+	/**
+	 * Get the upper right Coordinate of the given one
+	 * 
+	 * @param initial the coordinate from which to search
+	 * @return the retrived Coordinate
+	 */
+	public static Coordinate getUpRightCoord(Coordinate initial)
+	{
+		return new Coordinate(initial.getX()+1,initial.getY()+1);
+	}
+	
+	/**
+	 * Get the bottom left Coordinate of the given one
+	 * 
+	 * @param initial the coordinate from which to search
+	 * @return the retrived Coordinate
+	 */
+	public static Coordinate getBottomLeftCoord(Coordinate initial)
+	{
+		return new Coordinate(initial.getX()-1,initial.getY()-1);
+	}
+	
+	/**
+	 * 
+	 * @param intial the coordinate from which to search
+	 * @return the retrived Coordinate
+	 */
+	public static Coordinate getBottomRightCoord(Coordinate initial)
+	{
+		return new Coordinate(initial.getX()-1,initial.getY()+1);
+	}
+	
+	/**
 	 * Gets the coordinate neightbours
 	 * 
 	 * @param intial the coordinate from which to search
@@ -169,6 +212,14 @@ public class Coordinate
 		coords.add(Coordinate.getLeftCoord(initial));
 		// Get the right coordinate
 		coords.add(Coordinate.getRightCoord(initial));
+		// Get the upper left coordinate
+		coords.add(Coordinate.getUpLeftCoord(initial));
+		// Get the upper right coordinate
+		coords.add(Coordinate.getUpRightCoord(initial));
+		// Get the bottom left coordinate
+		coords.add(Coordinate.getBottomLeftCoord(initial));
+		// Get the bottom right coordinate
+		coords.add(Coordinate.getBottomRightCoord(initial));
 		
 		return coords;
 	}
