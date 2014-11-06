@@ -224,6 +224,34 @@ public class Coordinate
 		return coords;
 	}
 	
+	/**
+	 * 
+	 * @param coord1
+	 * @param coord2
+	 * @return
+	 */
+	public static int getDistance(Coordinate coord1, Coordinate coord2)
+	{
+		int deltaX = Math.abs(coord1.getX() - coord2.getX());
+		int deltaY = Math.abs(coord1.getY() - coord2.getY());
+		
+		int step = 0;
+		
+		while(deltaX > 0 || deltaY > 0) {
+			if (deltaX > 0) {
+				deltaX--;
+				if (deltaY > 0) {
+					deltaY--;
+				}
+			} else {
+				deltaY--;
+			}
+			step++;
+		}
+		
+		return step;
+	}
+	
 	@Override
 	public String toString()
 	{
