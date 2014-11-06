@@ -3,6 +3,8 @@
  */
 package sea;
 
+import java.util.LinkedList;
+
 /**
  * @author antoine
  *
@@ -62,7 +64,12 @@ public class LifeGame
 	{
 		while (this.currentCycle < cycles) {
 			
-			for (Fish fish : this.sea.getFishes()) {
+			/*
+			 * Clone to prevent ConcurrentModificationException
+			 */
+			@SuppressWarnings("unchecked")
+			LinkedList<Fish> fishes = (LinkedList<Fish>) this.sea.getFishes().clone();
+			for (Fish fish : fishes) {
 				fish.move();
 			}
 			
@@ -99,6 +106,8 @@ public class LifeGame
 	public void dump()
 	{
 		System.out.println("Cycle "+this.currentCycle+"\n");
+		System.out.println("Sardines: "+this.sea.getSardineNumber());
+		System.out.println("Sharks: "+this.sea.getSharkNumber());
 		System.out.println(this.toString());
 	}
 	

@@ -223,4 +223,10 @@ public class Coordinate
 		
 		return coords;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "["+this.x+";"+this.y+"]";
+	}
 }

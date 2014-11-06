@@ -4,12 +4,13 @@
 package sea;
 
 import java.util.LinkedList;
+import java.util.Observable;
 
 /**
  * @author antoine
  *
  */
-public abstract class Fish
+public abstract class Fish extends Observable
 {	
 	/**
 	 * The age of the fish (in cycle)
@@ -32,8 +33,9 @@ public abstract class Fish
 	 */
 	public Fish(Sea sea)
 	{
-		this.sea = sea;
 		this.age = 0;
+		this.sea = sea;
+		this.addObserver(sea);	
 	}
 	
 	/**
@@ -53,7 +55,12 @@ public abstract class Fish
 	 */
 	public void setCoordinate(Coordinate coord)
 	{
-		this.coordinate = coord;	
+		Coordinate initial = this.coordinate;
+		this.coordinate = coord;
+		if (initial != null) {
+			this.setChanged();
+		}
+		this.notifyObservers(new FishEvent(this, initial, FishEvent.EVENT_MOVED));
 	}
 	
 	/**
@@ -66,6 +73,9 @@ public abstract class Fish
 	{
 		LinkedList<Coordinate> coords = Coordinate.getNeighbours(this.coordinate);
 		
+		/*
+		 * Clone to prevent ConcurrentModificationException
+		 */
 		@SuppressWarnings("unchecked")
 		LinkedList<Coordinate> coordsCloned = (LinkedList<Coordinate>) coords.clone();
 		
@@ -97,7 +107,8 @@ public abstract class Fish
 		 * to go. So we do nothing
 		 */
 		if (target != null) {
-			this.sea.moveFish(this, target);
+			// this.sea.moveFish(this, target);
+			this.setCoordinate(target);	
 		}
 		
 		/*
@@ -105,6 +116,16 @@ public abstract class Fish
 		 * the fish grow up
 		 */
 		this.age++;
+	}
+	
+	/**
+	 * 
+	 */
+	public void die()
+	{
+		System.out.println(this.getCoordinate()+" died");
+		this.setChanged();
+		this.notifyObservers(new FishEvent(this, this.coordinate, FishEvent.EVENT_DIED));
 	}
 	
 	/**

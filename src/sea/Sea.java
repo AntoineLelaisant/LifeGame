@@ -4,6 +4,8 @@
 package sea;
 
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -12,7 +14,7 @@ import java.util.LinkedList;
  * 
  * @author antoine
  */
-public class Sea
+public class Sea implements Observer
 {
 	/**
 	 * @see Fish
@@ -128,19 +130,6 @@ public class Sea
 	}
 	
 	/**
-	 * 
-	 * @param fish
-	 * @param target
-	 */
-	public void moveFish(Fish fish, Coordinate target)
-	{
-		Coordinate initial = fish.getCoordinate();
-		this.setSquare(target, fish);
-		fish.setCoordinate(target);
-		this.clearSquare(initial);
-	}
-	
-	/**
 	 * Get the a square of the Sea's area
 	 * 
 	 * @param x the x index of the area
@@ -204,13 +193,108 @@ public class Sea
 		return this.fishes;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public LinkedList<Sardine> getSardines()
+	{
+		LinkedList<Sardine> sardines= new LinkedList<Sardine>();
+		
+		for (Fish fish : this.fishes) {
+			if (fish instanceof Sardine) {
+				sardines.add((Sardine) fish);
+			}
+		}
+		return sardines;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public LinkedList<Shark> getSharks()
+	{
+		LinkedList<Shark> sharks= new LinkedList<Shark>();
+		
+		for (Fish fish : this.fishes) {
+			if (fish instanceof Shark) {
+				sharks.add((Shark) fish);
+			}
+		}
+		return sharks;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getSardineNumber()
+	{
+		return this.getSardines().size();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getSharkNumber()
+	{
+		return this.getSharks().size();
+	}
+	
+	/**
+	 * 
+	 * @param fish
+	 * @param target
+	 */
+	private void fishMoved(Fish fish, Coordinate initial)
+	{
+		this.clearSquare(initial);
+		this.setSquare(fish.getCoordinate(), fish);
+	}
+	
+	/**
+	 * 
+	 * @param fish
+	 */
+	private void fishDied(Fish fish)
+	{
+		this.fishes.remove(fish);
+		this.clearSquare(fish.getCoordinate());
+	}
+
+	@Override
+	public void update(Observable o, Object event)
+	{
+		if (event instanceof FishEvent) {
+			FishEvent fishEvent = ((FishEvent) event);
+			
+			switch(fishEvent.getEventType()) {
+				case FishEvent.EVENT_MOVED:
+					this.fishMoved(fishEvent.getSource(), fishEvent.getInitial());
+					break;
+				
+				case FishEvent.EVENT_DIED:
+					this.fishDied(fishEvent.source);
+					break;
+			}
+		}
+	}
+	
 	@Override
 	public String toString()
 	{
 		String ret = "";
 		
+		for (int j = 0; j < area[0].length; j++) {
+			ret += (j < 10) ? "  "+j+" " : " "+j+" ";	
+		}
+		ret += "\n";
+		
 		for (int i = 0; i < this.area.length; i++) {
 			Fish[] columns = area[i];
+			
 			for (int j = 0; j < columns.length; j++) {
 				ret += "----";
 			}
