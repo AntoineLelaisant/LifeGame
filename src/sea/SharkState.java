@@ -29,7 +29,6 @@ public abstract class SharkState
 		 * to go. So we do nothing
 		 */
 		if (target != null) {
-			// this.sea.moveFish(this, target);
 			this.shark.setCoordinate(target);	
 		}
 	}

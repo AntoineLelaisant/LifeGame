@@ -13,7 +13,10 @@ public class SharkStateSemiAdult extends SharkState
 	@Override
 	public void checkAge()
 	{
-		// TODO Auto-generated method stub
+		if (this.shark.getAge() >= Shark.AGE_ADULT) {
+			this.shark.setState(this.shark.stateAdult);
+			System.out.println("Shark grew up to Adult");
+		}
 		
 	}
 	

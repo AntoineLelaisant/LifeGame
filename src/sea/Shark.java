@@ -14,8 +14,10 @@ public class Shark extends Fish
 	public static final int AGE_SEMI_ADULT = 5;
 	public static final int AGE_ADULT = 10;
 	
+	// Implementation of pattern state
 	public final SharkStateChild stateChild = new SharkStateChild(this);
 	public final SharkStateSemiAdult stateSemiAdult = new SharkStateSemiAdult(this);
+	public final SharkStateAdult stateAdult = new SharkStateAdult(this);
 	
 	private SharkState state;
 	

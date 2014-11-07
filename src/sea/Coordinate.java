@@ -104,7 +104,6 @@ public class Coordinate
 		} else {
 			return null;
 		}
-			
 	}
 	
 	/**
@@ -225,10 +224,12 @@ public class Coordinate
 	}
 	
 	/**
+	 * Gets the distance between two Coordinate
+	 * (assuming we can move diagonally)
 	 * 
 	 * @param coord1
 	 * @param coord2
-	 * @return
+	 * @return the distance between the two Coordinate
 	 */
 	public static int getDistance(Coordinate coord1, Coordinate coord2)
 	{
@@ -248,8 +249,37 @@ public class Coordinate
 			}
 			step++;
 		}
-		
 		return step;
+	}
+	
+	/**
+	 * Gets the list of the nearest Coordinates of 
+	 * the target Coordinate
+	 * 
+	 * @param coords
+	 * @param target
+	 * @return
+	 */
+	public static LinkedList<Coordinate> getNearestCoords(LinkedList<Coordinate> coords, Coordinate target)
+	{
+		LinkedList<Coordinate> nearest = new LinkedList<Coordinate>();
+		
+		for (Coordinate coordinate : coords) {
+			if (nearest.size() == 0) {
+				nearest.add(coordinate);
+			} else {
+				int nearestDistance = Coordinate.getDistance(target, nearest.getFirst());
+				int currentDistance = Coordinate.getDistance(target, coordinate);
+				
+				if (nearestDistance == currentDistance) {
+					nearest.add(coordinate);
+				} else if (nearestDistance > currentDistance) {
+					nearest.clear();
+					nearest.add(coordinate);
+				}
+			}
+		}
+		return nearest;
 	}
 	
 	@Override
