@@ -1,5 +1,7 @@
 package sea;
 
+import java.util.LinkedList;
+
 public class SharkStateChild extends SharkState
 {
 	
@@ -9,26 +11,19 @@ public class SharkStateChild extends SharkState
 	}
 
 	@Override
-	public void move()
-	{	
-		Coordinate target = Coordinate.getRandomCoord( this.shark.getAvailablePlaces());
-		
-		/*
-		 * If target is null it means
-		 * that the fish have no available place
-		 * to go. So we do nothing
-		 */
-		if (target != null) {
-			// this.sea.moveFish(this, target);
-			this.shark.setCoordinate(target);	
+	public void checkAge()
+	{
+		if (this.shark.getAge() >= Shark.AGE_SEMI_ADULT) {
+			this.shark.setState(this.shark.stateSemiAdult);
+			System.out.println("Shark grew up to Semi-Adult");
 		}
 		
-		/*
-		 * At the end of the cycle
-		 * the fish grow up
-		 */
-		this.shark.age++;
-		
+	}
+
+	@Override
+	protected LinkedList<Coordinate> getPreferedPlaces(LinkedList<Coordinate> availablesPlaces)
+	{
+		return availablesPlaces;
 	}
 
 }

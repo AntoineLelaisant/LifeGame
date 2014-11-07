@@ -11,7 +11,11 @@ import java.util.LinkedList;
  */
 public class Shark extends Fish
 {
+	public static final int AGE_SEMI_ADULT = 5;
+	public static final int AGE_ADULT = 10;
+	
 	public final SharkStateChild stateChild = new SharkStateChild(this);
+	public final SharkStateSemiAdult stateSemiAdult = new SharkStateSemiAdult(this);
 	
 	private SharkState state;
 	
@@ -44,10 +48,28 @@ public class Shark extends Fish
 		this.notifyObservers(new FishEvent(this, initial, FishEvent.EVENT_MOVED));
 	}
 	
+	/**
+	 * Set the state of the Shark
+	 * 
+	 * @param state the state of the Shark
+	 */
+	public void setState(SharkState state)
+	{
+		this.state = state;
+	}
+	
 	@Override
 	public void move()
 	{
 		this.state.move();
+		
+		/*
+		 * At the end of the cycle
+		 * the fish grow up
+		 */
+		this.age++;
+		
+		this.state.checkAge();
 	}
 	
 	@Override
@@ -55,6 +77,9 @@ public class Shark extends Fish
 	{
 		LinkedList<Coordinate> coords = Coordinate.getNeighbours(this.coordinate);
 		
+		/*
+		 * Clone to prevent ConcurrentModificationException
+		 */
 		@SuppressWarnings("unchecked")
 		LinkedList<Coordinate> coordsCloned = (LinkedList<Coordinate>) coords.clone();
 		
@@ -62,6 +87,10 @@ public class Shark extends Fish
 			try{
 				Fish fish = this.sea.getSquare(coordinate);
 				
+				/*
+				 * If the square is occupated and if this is not 
+				 * a Sardine we remove this square from the availables squares
+				 */
 				if (fish != null && !(fish instanceof Sardine)) {
 					coords.remove(coordinate);
 				}

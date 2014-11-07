@@ -39,6 +39,26 @@ public abstract class Fish extends Observable
 	}
 	
 	/**
+	 * Gets the fish age
+	 * 
+	 * @return the fish age
+	 */
+	public int getAge()
+	{
+		return this.age;
+	}
+	
+	/**
+	 * The sea in which the fish lives
+	 * 
+	 * @return the sea in which the fish lives
+	 */
+	public Sea getSea()
+	{
+		return this.sea;
+	}
+	
+	/**
 	 * Get the fish coordinate
 	 * 
 	 * @return the fish {@link Coordinate}
