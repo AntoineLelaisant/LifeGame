@@ -71,7 +71,7 @@ public class LifeGame
 			LinkedList<Fish> fishes = (LinkedList<Fish>) this.sea.getFishes().clone();
 			for (Fish fish : fishes) {
 				fish.move();
-				//fish.reproduct();
+				fish.reproduct();
 			}
 			
 			if (this.dumpCycles) {
