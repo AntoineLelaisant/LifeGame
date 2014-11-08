@@ -16,6 +16,10 @@ public class SharkStateAdult extends SharkState
 	{
 		LinkedList<Coordinate> nearestSardines = this.getNearestSardines();
 		
+		if (nearestSardines.size() == 0) {
+			return availablesPlaces;
+		}
+		
 		/*
 		 * We use HashSet to not add duplicate
 		 * Coordinate

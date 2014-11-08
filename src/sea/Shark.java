@@ -122,4 +122,9 @@ public class Shark extends Fish
 		return new Shark(this.sea);
 	}
 
+	@Override
+	public String toString()
+	{
+		return "S";
+	}
 }

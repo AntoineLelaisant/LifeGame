@@ -304,11 +304,7 @@ public class Sea implements Observer
 				Fish fish = columns[j];
 				ret += "|";
 				if (fish != null) {
-					if (fish.getClass().getSimpleName().equals("Sardine")) {
-						ret += " x ";
-					} else if (fish.getClass().getSimpleName().equals("Shark")) {
-						ret += " S ";
-					} 
+					ret += " "+fish.toString()+" ";
 				} else {
 					ret += "   ";
 				}		

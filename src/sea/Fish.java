@@ -154,6 +154,7 @@ public abstract class Fish extends Observable
 			if (target != null) {
 				this.sea.addFish(this.newChild(), target);
 				this.reproductionCounter = 0;
+				System.out.println("Reproduction: "+this.getCoordinate()+" -> "+target);
 				return;
 			}
 		}
@@ -182,17 +183,12 @@ public abstract class Fish extends Observable
 	 */
 	public abstract int getReproductionFrequency();
 	
+	/**
+	 * Get a new instance of the fish
+	 * 
+	 * @return a new instance of Fish
+	 */
 	public abstract Fish newChild();
 	
-	@Override
-	public String toString()
-	{
-		String ret = this.getClass().getSimpleName()+":\n";
-		ret += "Age: "+this.age+"\n";
-		ret += "Death age: "+this.getDeathAge()+"\n";
-		ret += "Reproduction frequency: "+this.getReproductionFrequency()+"\n";
-		ret += "Coordinate: ["+this.coordinate.getX()+";"+this.coordinate.getY()+"]\n";
-		
-		return ret;
-	}
+	//public abstract boolean checkAge();
 }

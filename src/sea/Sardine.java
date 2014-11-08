@@ -35,4 +35,11 @@ public class Sardine extends Fish
 		return new Sardine(this.sea);
 	}
 
+	/**
+	 * 
+	 */
+	public String toString()
+	{
+		return "x";
+	}
 }
