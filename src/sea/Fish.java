@@ -26,6 +26,11 @@ public abstract class Fish extends Observable
 	 * The coordinate of the fish in the sea
 	 */
 	protected Coordinate coordinate;
+	
+	/**
+	 * A counter to know
+	 */
+	private int reproductionCounter;
 
 	/**
 	 * 
@@ -141,6 +146,23 @@ public abstract class Fish extends Observable
 	/**
 	 * 
 	 */
+	public void reproduct()
+	{	
+		if (this.reproductionCounter >= this.getReproductionFrequency()) {
+			Coordinate target = Coordinate.getRandomCoord(this.getAvailablePlaces());
+			
+			if (target != null) {
+				this.sea.addFish(this.newChild(), target);
+				this.reproductionCounter = 0;
+				return;
+			}
+		}
+		this.reproductionCounter++;
+	}
+	
+	/**
+	 * 
+	 */
 	public void die()
 	{
 		System.out.println(this.getCoordinate()+" died");
@@ -159,6 +181,8 @@ public abstract class Fish extends Observable
 	 * @return The reproduction frequency (in cycle)
 	 */
 	public abstract int getReproductionFrequency();
+	
+	public abstract Fish newChild();
 	
 	@Override
 	public String toString()

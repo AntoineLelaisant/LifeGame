@@ -113,7 +113,13 @@ public class Shark extends Fish
 	@Override
 	public int getReproductionFrequency()
 	{
-		return 5;
+		return 17;
+	}
+
+	@Override
+	public Fish newChild()
+	{
+		return new Shark(this.sea);
 	}
 
 }

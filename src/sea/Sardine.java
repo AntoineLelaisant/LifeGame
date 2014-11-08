@@ -26,7 +26,13 @@ public class Sardine extends Fish
 	@Override
 	public int getReproductionFrequency()
 	{
-		return 2;
+		return 5;
+	}
+
+	@Override
+	public Fish newChild()
+	{
+		return new Sardine(this.sea);
 	}
 
 }
