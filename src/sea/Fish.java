@@ -146,6 +146,13 @@ public abstract class Fish extends Observable
 		this.age++;
 	}
 	
+	public void nextCycle()
+	{
+		this.move();
+		this.reproduct();
+		this.checkDeathAge();
+	}
+	
 	/**
 	 * 
 	 */

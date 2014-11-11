@@ -82,9 +82,7 @@ public class LifeGame
 				 * the cycle
 				 */
 				if (!this.sea.diedFish.contains(fish)) {
-					fish.move();
-					fish.reproduct();
-					fish.checkDeathAge();
+					fish.nextCycle();
 				}
 			}
 			

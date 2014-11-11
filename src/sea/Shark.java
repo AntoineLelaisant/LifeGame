@@ -16,6 +16,8 @@ public class Shark extends Fish
 	
 	public static final int MAX_HUNGER_CYCLE = 5;
 	
+	private int hungerCounter;
+	
 	// Implementation of pattern state
 	public final SharkStateChild stateChild = new SharkStateChild(this);
 	public final SharkStateSemiAdult stateSemiAdult = new SharkStateSemiAdult(this);
@@ -30,6 +32,7 @@ public class Shark extends Fish
 	{
 		super(sea);
 		this.state = this.stateChild;
+		this.hungerCounter = 0;
 	}
 	
 	@Override
@@ -42,6 +45,9 @@ public class Shark extends Fish
 		if (this.sea.getSquare(coord) instanceof Sardine) {
 			System.out.println(this+" eat "+this.sea.getSquare(coord));
 			this.sea.getSquare(coord).die();
+			this.hungerCounter = 0;
+		} else {
+			this.hungerCounter++;
 		}
 		
 		super.setCoordinate(coord);
@@ -69,6 +75,24 @@ public class Shark extends Fish
 		this.age++;
 		
 		this.state.checkAge();
+	}
+	
+	@Override
+	public void nextCycle() 
+	{
+		super.nextCycle();
+		this.checkHunger();
+	}
+	
+	/**
+	 * 
+	 */
+	public void checkHunger()
+	{
+		if (this.hungerCounter >= Shark.MAX_HUNGER_CYCLE) {
+			this.die();
+			System.out.println(this+" died (hunger)");
+		}
 	}
 	
 	@Override
