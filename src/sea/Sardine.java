@@ -40,6 +40,12 @@ public class Sardine extends Fish
 	 */
 	public String toString()
 	{
+		return "(x) "+this.coordinate;
+	}
+
+	@Override
+	public String toStringShort()
+	{
 		return "x";
 	}
 }

@@ -14,6 +14,8 @@ public class Shark extends Fish
 	public static final int AGE_SEMI_ADULT = 5;
 	public static final int AGE_ADULT = 10;
 	
+	public static final int MAX_HUNGER_CYCLE = 5;
+	
 	// Implementation of pattern state
 	public final SharkStateChild stateChild = new SharkStateChild(this);
 	public final SharkStateSemiAdult stateSemiAdult = new SharkStateSemiAdult(this);
@@ -33,21 +35,16 @@ public class Shark extends Fish
 	@Override
 	public void setCoordinate(Coordinate coord)
 	{
-		Coordinate initial = this.coordinate;
-		
 		/*
 		 * If the target square is a Sardine
 		 * it dies 
 		 */
 		if (this.sea.getSquare(coord) instanceof Sardine) {
+			System.out.println(this+" eat "+this.sea.getSquare(coord));
 			this.sea.getSquare(coord).die();
 		}
 		
-		this.coordinate = coord;
-		if (initial != null) {
-			this.setChanged();
-		}
-		this.notifyObservers(new FishEvent(this, initial, FishEvent.EVENT_MOVED));
+		super.setCoordinate(coord);
 	}
 	
 	/**
@@ -107,7 +104,7 @@ public class Shark extends Fish
 	@Override
 	public int getDeathAge()
 	{
-		return 70;
+		return 30;
 	}
 
 	@Override
@@ -124,6 +121,12 @@ public class Shark extends Fish
 
 	@Override
 	public String toString()
+	{
+		return "(S) "+this.coordinate;
+	}
+
+	@Override
+	public String toStringShort()
 	{
 		return "S";
 	}

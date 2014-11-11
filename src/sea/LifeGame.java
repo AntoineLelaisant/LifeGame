@@ -61,23 +61,35 @@ public class LifeGame
 	 * @param cycles The number of cycle to perform
 	 */
 	public void startTime(int cycles)
-	{
+	{	
 		while (this.currentCycle < cycles) {
+			
+			this.sea.diedFish.clear();
+			
+			if (this.dumpCycles) {
+				this.dump();
+			}
 			
 			/*
 			 * Clone to prevent ConcurrentModificationException
 			 */
 			@SuppressWarnings("unchecked")
 			LinkedList<Fish> fishes = (LinkedList<Fish>) this.sea.getFishes().clone();
+			
 			for (Fish fish : fishes) {
-				fish.move();
-				fish.reproduct();
+				/*
+				 * Check wether the fish didn't die during
+				 * the cycle
+				 */
+				if (!this.sea.diedFish.contains(fish)) {
+					fish.move();
+					fish.reproduct();
+					fish.checkDeathAge();
+				}
 			}
 			
-			if (this.dumpCycles) {
-				this.dump();
-			}
 			this.currentCycle++;
+			System.out.println("Fin du cycle");
 		}
 	}
 	

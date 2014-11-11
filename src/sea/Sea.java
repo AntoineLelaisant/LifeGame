@@ -3,6 +3,7 @@
  */
 package sea;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
@@ -28,6 +29,11 @@ public class Sea implements Observer
 	 */
 	private LinkedList<Fish> fishes;
 	
+	/**
+	 * The list of the died fish during a cycle
+	 */
+	public HashSet<Fish> diedFish;
+	
 	/** The area x size */
 	private final int xSize;
 	
@@ -50,6 +56,7 @@ public class Sea implements Observer
 		this.xSize = x;
 		this.ySize = y;
 		this.fishes = new LinkedList<Fish>();
+		this.diedFish = new HashSet<Fish>();
 		this.area = new Fish[x][y];
 		
 		while(sardine > 0) {
@@ -84,8 +91,7 @@ public class Sea implements Observer
 	 * @throws FullSeaException thrown when the sea is full of fishes
 	 */
 	private void putFish(Fish fish) throws FullSeaException 
-	{
-		
+	{		
 		Coordinate coord;
 		boolean isTaken;
 		int counter = 0;
@@ -262,6 +268,7 @@ public class Sea implements Observer
 	{
 		this.fishes.remove(fish);
 		this.clearSquare(fish.getCoordinate());
+		this.diedFish.add(fish);
 	}
 
 	@Override
@@ -276,7 +283,7 @@ public class Sea implements Observer
 					break;
 				
 				case FishEvent.EVENT_DIED:
-					this.fishDied(fishEvent.source);
+					this.fishDied(fishEvent.getSource());
 					break;
 			}
 		}
@@ -304,7 +311,7 @@ public class Sea implements Observer
 				Fish fish = columns[j];
 				ret += "|";
 				if (fish != null) {
-					ret += " "+fish.toString()+" ";
+					ret += " "+fish.toStringShort()+" ";
 				} else {
 					ret += "   ";
 				}		

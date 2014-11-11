@@ -55,10 +55,7 @@ public class SharkStateAdult extends SharkState
 	@Override
 	public void checkAge()
 	{
-		/*
-		 * This is the maximal age for the shark
-		 * so there is nothing to do
-		 */
+		// no op
 	}
 
 }

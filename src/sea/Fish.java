@@ -86,6 +86,9 @@ public abstract class Fish extends Observable
 			this.setChanged();
 		}
 		this.notifyObservers(new FishEvent(this, initial, FishEvent.EVENT_MOVED));
+		
+		// Log
+		if (initial != null) System.out.println(initial+" moved to "+this);
 	}
 	
 	/**
@@ -166,9 +169,20 @@ public abstract class Fish extends Observable
 	 */
 	public void die()
 	{
-		System.out.println(this.getCoordinate()+" died");
 		this.setChanged();
 		this.notifyObservers(new FishEvent(this, this.coordinate, FishEvent.EVENT_DIED));
+	}
+	
+	/**
+	 * Check if the fish has raised his
+	 * maximal age
+	 */
+	public void checkDeathAge()
+	{
+		if (this.getAge() >= this.getDeathAge()) {
+			System.out.println(this+" too old");
+			this.die();
+		}
 	}
 	
 	/**
@@ -190,5 +204,5 @@ public abstract class Fish extends Observable
 	 */
 	public abstract Fish newChild();
 	
-	//public abstract boolean checkAge();
+	public abstract String toStringShort();
 }
