@@ -15,7 +15,6 @@ public class SharkStateChild extends SharkState
 	{
 		if (this.shark.getAge() >= Shark.AGE_SEMI_ADULT) {
 			this.shark.setState(this.shark.stateSemiAdult);
-			System.out.println("Shark grew up to Semi-Adult");
 		}
 		
 	}

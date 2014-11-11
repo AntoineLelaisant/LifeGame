@@ -43,7 +43,6 @@ public class Shark extends Fish
 		 * it dies 
 		 */
 		if (this.sea.getSquare(coord) instanceof Sardine) {
-			System.out.println(this+" eat "+this.sea.getSquare(coord));
 			this.sea.getSquare(coord).die();
 			this.hungerCounter = 0;
 		} else {
@@ -91,7 +90,6 @@ public class Shark extends Fish
 	{
 		if (this.hungerCounter >= Shark.MAX_HUNGER_CYCLE) {
 			this.die();
-			System.out.println(this+" died (hunger)");
 		}
 	}
 	

@@ -86,9 +86,6 @@ public abstract class Fish extends Observable
 			this.setChanged();
 		}
 		this.notifyObservers(new FishEvent(this, initial, FishEvent.EVENT_MOVED));
-		
-		// Log
-		if (initial != null) System.out.println(initial+" moved to "+this);
 	}
 	
 	/**
@@ -164,7 +161,6 @@ public abstract class Fish extends Observable
 			if (target != null) {
 				this.sea.addFish(this.newChild(), target);
 				this.reproductionCounter = 0;
-				System.out.println("Reproduction: "+this.getCoordinate()+" -> "+target);
 				return;
 			}
 		}
@@ -187,7 +183,6 @@ public abstract class Fish extends Observable
 	public void checkDeathAge()
 	{
 		if (this.getAge() >= this.getDeathAge()) {
-			System.out.println(this+" too old");
 			this.die();
 		}
 	}

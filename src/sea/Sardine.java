@@ -26,7 +26,7 @@ public class Sardine extends Fish
 	@Override
 	public int getReproductionFrequency()
 	{
-		return 5;
+		return 10;
 	}
 
 	@Override
