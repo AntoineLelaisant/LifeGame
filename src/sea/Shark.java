@@ -6,8 +6,11 @@ package sea;
 import java.util.LinkedList;
 
 /**
+ * Shark Class.
+ * 
+ * 
+ * 
  * @author antoine
- *
  */
 public class Shark extends Fish
 {
@@ -16,9 +19,14 @@ public class Shark extends Fish
 	
 	public static final int MAX_HUNGER_CYCLE = 5;
 	
+	/**
+	 * Counter used to know how long
+	 * this Shark ate a {@link Sardine} 
+	 * for the last time
+	 */
 	private int hungerCounter;
 	
-	// Implementation of pattern state
+	// Implementation of the pattern state
 	public final SharkStateChild stateChild = new SharkStateChild(this);
 	public final SharkStateSemiAdult stateSemiAdult = new SharkStateSemiAdult(this);
 	public final SharkStateAdult stateAdult = new SharkStateAdult(this);
@@ -26,6 +34,8 @@ public class Shark extends Fish
 	private SharkState state;
 	
 	/**
+	 * The class constructor
+	 * Use the {@link Fish#Fish(Sea)} constructor
 	 * 
 	 */
 	public Shark(Sea sea)
@@ -43,7 +53,6 @@ public class Shark extends Fish
 		 * it dies 
 		 */
 		if (this.sea.getSquare(coord) instanceof Sardine) {
-			System.out.println(this+" eat "+this.sea.getSquare(coord));
 			this.sea.getSquare(coord).die();
 			this.hungerCounter = 0;
 		} else {
@@ -63,7 +72,11 @@ public class Shark extends Fish
 		this.state = state;
 	}
 	
-	@Override
+	/**
+	 * Move the shark.
+	 * 
+	 * Delagate this action to the state
+	 */
 	public void move()
 	{
 		this.state.move();
@@ -77,7 +90,12 @@ public class Shark extends Fish
 		this.state.checkAge();
 	}
 	
-	@Override
+	/**
+	 * Do the default {@link Fish} actions
+	 * and call the {@link Shark#checkHunger()} method too.
+	 * 
+	 * @see Fish#nextCycle()
+	 */
 	public void nextCycle() 
 	{
 		super.nextCycle();
@@ -85,13 +103,13 @@ public class Shark extends Fish
 	}
 	
 	/**
-	 * 
+	 * Check whether the Shark should starve to death
+	 * If so, the Shark call the {@link Fish#die()} method
 	 */
 	public void checkHunger()
 	{
 		if (this.hungerCounter >= Shark.MAX_HUNGER_CYCLE) {
 			this.die();
-			System.out.println(this+" died (hunger)");
 		}
 	}
 	

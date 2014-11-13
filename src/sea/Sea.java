@@ -200,12 +200,14 @@ public class Sea implements Observer
 	}
 	
 	/**
+	 * Gets only the list of {@link Sardine} contained
+	 * by the Sea.
 	 * 
-	 * @return
+	 * @return The LinkedList of {@link Sardine} in the Sea
 	 */
 	public LinkedList<Sardine> getSardines()
 	{
-		LinkedList<Sardine> sardines= new LinkedList<Sardine>();
+		LinkedList<Sardine> sardines = new LinkedList<Sardine>();
 		
 		for (Fish fish : this.fishes) {
 			if (fish instanceof Sardine) {
@@ -216,8 +218,10 @@ public class Sea implements Observer
 	}
 	
 	/**
+	 * Gets only the list of {@link Shark} contained
+	 * by the Sea.
 	 * 
-	 * @return
+	 * @return The LinkedList of {@link Shark} in the Sea
 	 */
 	public LinkedList<Shark> getSharks()
 	{
@@ -232,8 +236,9 @@ public class Sea implements Observer
 	}
 	
 	/**
+	 * Gets the number of {@link Sardine} in the Sea
 	 * 
-	 * @return
+	 * @return The number of {@link Sardine} in the Sea
 	 */
 	public int getSardineNumber()
 	{
@@ -241,8 +246,9 @@ public class Sea implements Observer
 	}
 	
 	/**
+	 * Gets the number of {@link Shark} in the Sea
 	 * 
-	 * @return
+	 * @return The number of {@link Shark} in the Sea
 	 */
 	public int getSharkNumber()
 	{
@@ -250,9 +256,10 @@ public class Sea implements Observer
 	}
 	
 	/**
+	 * Update the {@link Sea#area} when a {@link Fish} moved
 	 * 
-	 * @param fish
-	 * @param target
+	 * @param fish the {@link Fish} which has moved
+	 * @param initial the intial position of this {@link Fish}
 	 */
 	private void fishMoved(Fish fish, Coordinate initial)
 	{
@@ -261,8 +268,10 @@ public class Sea implements Observer
 	}
 	
 	/**
+	 * Update the {@link Sea#area} and the {@link Sea#fishes} list
+	 * when a {@link Fish} died
 	 * 
-	 * @param fish
+	 * @param fish the {@link Fish} who died
 	 */
 	private void fishDied(Fish fish)
 	{
@@ -271,17 +280,23 @@ public class Sea implements Observer
 		this.diedFish.add(fish);
 	}
 
-	@Override
+	/**
+	 * Method used in the context of the pattern Observer.
+	 * 
+	 * Handles the {@link FishEvent} received
+	 */
 	public void update(Observable o, Object event)
 	{
 		if (event instanceof FishEvent) {
 			FishEvent fishEvent = ((FishEvent) event);
 			
 			switch(fishEvent.getEventType()) {
+				// A Fish moved
 				case FishEvent.EVENT_MOVED:
 					this.fishMoved(fishEvent.getSource(), fishEvent.getInitial());
 					break;
 				
+				// A Fish died
 				case FishEvent.EVENT_DIED:
 					this.fishDied(fishEvent.getSource());
 					break;

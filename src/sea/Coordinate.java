@@ -227,8 +227,8 @@ public class Coordinate
 	 * Gets the distance between two Coordinate
 	 * (assuming we can move diagonally)
 	 * 
-	 * @param coord1
-	 * @param coord2
+	 * @param coord1 A coordinate
+	 * @param coord2 A coordinate
 	 * @return the distance between the two Coordinate
 	 */
 	public static int getDistance(Coordinate coord1, Coordinate coord2)
@@ -253,12 +253,12 @@ public class Coordinate
 	}
 	
 	/**
-	 * Gets the list of the nearest Coordinates of 
+	 * Gets the list of the nearest Coordinates from 
 	 * the target Coordinate
 	 * 
-	 * @param coords
-	 * @param target
-	 * @return
+	 * @param coords a list of Coordinate
+	 * @param target the target Coordinate
+	 * @return LinkedList<Coordinate> 
 	 */
 	public static LinkedList<Coordinate> getNearestCoords(LinkedList<Coordinate> coords, Coordinate target)
 	{

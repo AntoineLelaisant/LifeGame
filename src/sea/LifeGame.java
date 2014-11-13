@@ -6,8 +6,11 @@ package sea;
 import java.util.LinkedList;
 
 /**
+ * LifeGame Class.
+ * 
+ * Main class of the game that allows to start the game.
+ * 
  * @author antoine
- *
  */
 public class LifeGame
 {
@@ -32,6 +35,7 @@ public class LifeGame
 	private boolean dumpCycles = false;
 	
 	/**
+	 * Main class constructor
 	 * 
 	 * @param sea The sea in which the system take place
 	 */
@@ -42,6 +46,10 @@ public class LifeGame
 	}
 	
 	/**
+	 * Secondary class constructor.
+	 * 
+	 * Creates a new {@link Sea} before call the 
+	 * main constructor of this class.
 	 * 
 	 * @param seaX The x size of the sea area
 	 * @param seaY The y size of the sea area
@@ -126,5 +134,24 @@ public class LifeGame
 	public String toString()
 	{
 		return this.sea.toString();
+	}
+	
+	/**
+	 * the main game method
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		int x = Integer.parseInt(args[0]);
+		int y = Integer.parseInt(args[1]);
+		
+		int sardines = Integer.parseInt(args[2]);
+		int sharks = Integer.parseInt(args[3]);
+		
+		LifeGame game = new LifeGame(x, y, sardines, sharks);
+		game.dumpCycles(true);
+		
+		game.startTime(40);
 	}
 }
