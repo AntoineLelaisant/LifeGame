@@ -33,6 +33,7 @@ public abstract class Fish extends Observable
 	private int reproductionCounter;
 
 	/**
+	 * The class constructor
 	 * 
 	 * @param sea The {@link Sea} in which the fish live
 	 */
@@ -74,7 +75,8 @@ public abstract class Fish extends Observable
 	}
 	
 	/**
-	 * Set the coordinate of the fish
+	 * Set the coordinate of the fish and notify the
+	 * sea that it has moved
 	 * 
 	 * @param coord the new {@link Coordinate} of the fish
 	 */
@@ -143,6 +145,10 @@ public abstract class Fish extends Observable
 		this.age++;
 	}
 	
+	/**
+	 * Perform all the action a fish 
+	 * must do during a cycle
+	 */
 	public void nextCycle()
 	{
 		this.move();
@@ -151,7 +157,12 @@ public abstract class Fish extends Observable
 	}
 	
 	/**
+	 * Check if the fish should reproduce by checking
+	 * wether the reproductionCounter has raised the 
+	 * reproduction frequency.
 	 * 
+	 * If true, a new Fish appears next to this Fish,
+	 * else, we increment the reproductionCounter.
 	 */
 	public void reproduct()
 	{	
@@ -168,7 +179,7 @@ public abstract class Fish extends Observable
 	}
 	
 	/**
-	 * 
+	 * Notify the sea that this Fish died
 	 */
 	public void die()
 	{
@@ -188,12 +199,14 @@ public abstract class Fish extends Observable
 	}
 	
 	/**
+	 * Gets the age at which this fish should die
 	 * 
 	 * @return The age of death (in cycle)
 	 */
 	public abstract int getDeathAge();
 	
 	/**
+	 * Gets the reproduction frequency of this Fish
 	 * 
 	 * @return The reproduction frequency (in cycle)
 	 */
@@ -206,5 +219,11 @@ public abstract class Fish extends Observable
 	 */
 	public abstract Fish newChild();
 	
+	/**
+	 * A short to String fonction used in
+	 * {@link Sea#toString()}
+	 * 
+	 * @return Should return "x" for Sardine and "S" for Shark
+	 */
 	public abstract String toStringShort();
 }

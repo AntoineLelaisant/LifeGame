@@ -2,11 +2,19 @@ package sea;
 
 import java.util.LinkedList;
 
+/**
+ * SharkState Class.
+ * 
+ * Represent a {@link Shark} state in the context of the State pattern
+ * 
+ * @author antoine
+ */
 public abstract class SharkState
 {
 	protected Shark shark;
 	
 	/**
+	 * The class constructor
 	 * 
 	 * @param shark
 	 */
@@ -34,10 +42,12 @@ public abstract class SharkState
 	}
 	
 	/**
-	 * Retrieves the prefered places for the shark
+	 * Retrieves the prefered places from the available places around the {@link Shark}.
 	 * 
-	 * @param availablesPlaces
-	 * @return
+	 * This method contains all the artifical intelligence of the sharks.
+	 * 
+	 * @param availablesPlaces The list of the available places around the {@link Shark}
+	 * @return The LinkedList of prefered coordinate 
 	 */
 	protected abstract LinkedList<Coordinate> getPreferedPlaces(LinkedList<Coordinate> availablesPlaces);
 	
