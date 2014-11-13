@@ -135,4 +135,23 @@ public class LifeGame
 	{
 		return this.sea.toString();
 	}
+	
+	/**
+	 * the main game method
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		int x = Integer.parseInt(args[0]);
+		int y = Integer.parseInt(args[1]);
+		
+		int sardines = Integer.parseInt(args[2]);
+		int sharks = Integer.parseInt(args[3]);
+		
+		LifeGame game = new LifeGame(x, y, sardines, sharks);
+		game.dumpCycles(true);
+		
+		game.startTime(40);
+	}
 }
