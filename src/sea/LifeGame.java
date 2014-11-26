@@ -149,9 +149,14 @@ public class LifeGame
 		int sardines = Integer.parseInt(args[2]);
 		int sharks = Integer.parseInt(args[3]);
 		
+		int cycles = 40;
+		if (args.length > 4) {
+			cycles = Integer.parseInt(args[4]);
+		}
+		
 		LifeGame game = new LifeGame(x, y, sardines, sharks);
 		game.dumpCycles(true);
 		
-		game.startTime(40);
+		game.startTime(cycles);
 	}
 }
